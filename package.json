@@ -23,6 +23,9 @@
     "build": "vite build",
     "typecheck": "vue-tsc",
     "pack": "bun pm pack",
+    "test:install": "bun run build && bun run pack && bun install --cwd test-project",
+    "test:dev": "bun run test:install && bun --cwd test-project run docs:dev",
+    "test:build": "bun run test:install && bun --cwd test-project run docs:build",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
