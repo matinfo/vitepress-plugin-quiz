@@ -1,0 +1,35 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">VitePress Quiz Plugin Icon</title>
+  <desc id="desc">Rounded card with a question mark, check marks, and lightning accent inspired by Vite-style visuals.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="40" y1="32" x2="216" y2="224" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#41D1FF"/>
+      <stop offset="1" stop-color="#BD34FE"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="78" y1="56" x2="176" y2="176" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFD166"/>
+      <stop offset="1" stop-color="#FFB703"/>
+    </linearGradient>
+    <filter id="shadow" x="20" y="16" width="216" height="224" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <rect x="36" y="28" width="184" height="200" rx="28" fill="url(#bg)"/>
+  </g>
+
+  <path d="M84 20L126 52L112 92L70 60L84 20Z" fill="#41D1FF" opacity="0.95"/>
+  <path d="M172 36L198 84L164 120L138 72L172 36Z" fill="#BD34FE" opacity="0.92"/>
+
+  <rect x="60" y="56" width="136" height="144" rx="20" fill="white" fill-opacity="0.94"/>
+
+  <path d="M128 86C113.088 86 102 95.432 102 108.8C102 113.218 105.29 116.8 109.4 116.8H118.2C121.182 116.8 123.6 114.382 123.6 111.4C123.6 108.418 121.182 106 118.2 106H117.2C118.967 101.996 123.331 99.2 128.8 99.2C136.357 99.2 141.6 103.57 141.6 109.6C141.6 113.335 139.282 116.395 134.8 119.6C127.865 124.513 124.8 129.147 124.8 136.6V140.2C124.8 143.403 127.397 146 130.6 146C133.803 146 136.4 143.403 136.4 140.2V137.6C136.4 133.999 137.938 131.818 141.5 129.2C149.276 123.664 154 117.937 154 109.2C154 95.615 142.632 86 128 86Z" fill="url(#accent)"/>
+  <circle cx="130.5" cy="162.5" r="8.5" fill="url(#accent)"/>
+
+  <path d="M82 103L89 110L102 95" stroke="#10B981" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M82 147L89 154L102 139" stroke="#10B981" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M156 166H176" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M156 186H176" stroke="#CBD5E1" stroke-width="8" stroke-linecap="round"/>
+</svg>
