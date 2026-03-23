@@ -1,4 +1,5 @@
 import type MarkdownIt from "markdown-it"
+import type StateBlock from "markdown-it/lib/rules_block/state_block.mjs"
 import type { QuizData, QuizAnswer } from "./types/quiz"
 
 const QUIZ_RE = /^:::quiz\s*$/
@@ -43,7 +44,7 @@ export function quizMarkdownPlugin(md: MarkdownIt): void {
 /* ── block rule ──────────────────────────────────────────────────────── */
 
 function quizBlockRule(
-  state: MarkdownIt.StateBlock,
+  state: StateBlock,
   startLine: number,
   endLine: number,
   silent: boolean,

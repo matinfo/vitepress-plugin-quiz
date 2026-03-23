@@ -81,7 +81,7 @@ const isCorrect = computed(() => {
   if (isInputMode.value) {
     // Case-insensitive comparison against any accepted variant
     const input = inputValue.value.trim().toLowerCase()
-    return rawQuiz.value.expected.some((e) => input === e.trim().toLowerCase())
+    return rawQuiz.value!.expected.some((e) => input === e.trim().toLowerCase())
   }
 
   const correctIndices = new Set(
@@ -255,7 +255,7 @@ function parseRichText(text: string): RichPart[] {
           @keydown.enter.prevent
         />
         <p v-if="validated && !isCorrect" class="quiz-expected">
-          {{ t.expectedAnswer }} <code>{{ rawQuiz.expected[0] }}</code>
+          {{ t.expectedAnswer }} <code>{{ rawQuiz?.expected[0] }}</code>
         </p>
       </div>
     </template>
