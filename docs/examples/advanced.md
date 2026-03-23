@@ -1,73 +1,74 @@
-# Advanced Examples
+# Markdown & VitePress Quiz
 
-These examples showcase richer usage: mixed question types, rich text, shuffling, edge cases, and multi-question page behaviour.
+For the audience most likely to use this plugin — people who write docs in VitePress. Shows rich-text formatting in answers and explanations.
 
 ---
 
-## Mixed question types on one page
+## Mixed question types
 
-A single page can combine single-choice, multiple-choice, and fill-in-the-blank questions. The progress bar and Validate button cover all of them together.
+All three question types on one page. The progress bar covers them together.
 
 :::quiz
-question: Which of the following are JavaScript array methods?
-answer-correct: `map`
-answer-correct: `filter`
-answer-correct: `reduce`
-answer: `grep`
-answer: `collect`
-explanation: JavaScript arrays have `map`, `filter`, and `reduce`. `grep` is a shell command; `collect` belongs to Laravel collections.
+question: Which Markdown syntax creates a **level-2 heading**?
+answer: `# Heading`
+answer-correct: `## Heading`
+answer: `### Heading`
+answer: `---- Heading`
+explanation: A single `#` creates an H1, `##` creates an H2, and so on up to `######` for H6.
 shuffle: true
 :::
 
 :::quiz
-question: What does the `===` operator check in JavaScript?
-answer: Value equality only
-answer-correct: Value **and** type equality
-answer: Reference equality
-answer: Type equality only
-explanation: The strict equality operator `===` checks both value **and** type — unlike `==` which coerces types.
-:::
-
-:::quiz
-question: Which HTTP method is *idempotent* but **not** safe?
-answer: GET
-answer: POST
-answer-correct: PUT
-answer: PATCH
-explanation: GET and HEAD are safe (no side effects) and idempotent. PUT is idempotent but not safe — it modifies a resource. POST is neither.
+question: Which characters produce a horizontal rule in Markdown?
+answer-correct: `---`
+answer-correct: `***`
+answer-correct: `___`
+answer: `===`
+answer: `...`
+explanation: Three or more hyphens `---`, asterisks `***`, or underscores `___` all render as a `<hr>` horizontal rule.
 shuffle: true
 :::
 
 :::quiz
-question: What keyword is used to pause execution inside an `async` function?
-answer-input: await
-explanation: The `await` keyword suspends the async function until the Promise resolves.
+question: In VitePress frontmatter, which key sets the page title shown in the browser tab?
+answer: `description`
+answer: `layout`
+answer-correct: `title`
+answer: `head`
+explanation: The `title` frontmatter key overrides the page title used in the `<title>` tag. `head` lets you inject arbitrary `<head>` elements.
+shuffle: true
+:::
+
+:::quiz
+question: What VitePress container type is used for a tip callout?
+answer-input: tip
+explanation: Write `:::tip` … `:::` to render a tip callout box. Other built-in types are `info`, `warning`, `danger`, and `details`.
 :::
 
 ---
 
 ## Rich text in questions and explanations
 
-Questions, answer text, and explanations support `**bold**`, `*italic*`, and `` `code` `` formatting.
+Questions, answers, and explanations support `**bold**`, `*italic*`, and `` `code` `` formatting.
 
 :::quiz
-question: Which CSS `display` values create a **block formatting context**?
-answer-correct: `flow-root`
-answer-correct: `flex`
-answer-correct: `grid`
-answer: `inline`
-answer: `contents`
-explanation: `flow-root`, `flex`, and `grid` all establish a **block formatting context** (BFC), which contains floats and prevents margin collapsing.
+question: Which syntax makes text **bold** in Markdown?
+answer: `*text*`
+answer-correct: `**text**`
+answer: `__text_` 
+answer: `~~text~~`
+explanation: Wrap text in `**double asterisks**` or `__double underscores__` for **bold**. Single asterisks or underscores produce *italic*.
 shuffle: true
 :::
 
 :::quiz
-question: In Vue 3, which function from `vue` wraps a *reactive* value in an object?
-answer: `reactive`
-answer-correct: `ref`
-answer: `computed`
-answer: `watch`
-explanation: `ref()` wraps a value in a reactive object with a `.value` property. `reactive()` wraps plain objects, not primitives.
+question: In VitePress, which `vue` composable gives you the current page's *frontmatter* data?
+answer: `useData().page`
+answer-correct: `useData().frontmatter`
+answer: `useRoute().meta`
+answer: `useFrontmatter()`
+explanation: `useData()` returns `{ site, page, theme, frontmatter, lang, … }`. Access `useData().frontmatter` to read the current page's YAML frontmatter.
+shuffle: true
 :::
 
 ---
@@ -77,41 +78,41 @@ explanation: `ref()` wraps a value in a reactive object with a `.value` property
 All four answers are shuffled on every page load. Reload to verify.
 
 :::quiz
-question: What is the output of `typeof null` in JavaScript?
-answer-correct: `"object"`
-answer: `"null"`
-answer: `"undefined"`
-answer: `"symbol"`
-explanation: `typeof null === "object"` is a well-known JavaScript quirk — a bug from the language's first version that was never fixed for backwards compatibility.
+question: What syntax creates a *fenced code block* with syntax highlighting in Markdown?
+answer-correct: Triple backticks followed by a language name
+answer: Four spaces of indentation
+answer: Triple tildes only (no language tag needed)
+answer: A `<code>` HTML tag
+explanation: Surround code with ` ``` ` and add the language identifier (e.g. ` ```js `) to get syntax highlighting. Indentation-based code blocks do not support language tagging.
 shuffle: true
 :::
 
 ---
 
-## Fill-in-the-blank — acronym with multiple spellings
+## Fill-in-the-blank — syntax with multiple accepted variants
 
 :::quiz
-question: What does the acronym **REST** stand for?
-answer-input: Representational State Transfer
-answer-input: representational state transfer
-explanation: **REST** = Representational State Transfer — an architectural style for distributed hypermedia systems.
+question: What is the Markdown syntax to create an *italicised* word?
+answer-input: *word*
+answer-input: _word_
+explanation: Both `*single asterisks*` and `_single underscores_` produce *italic* text. Both variants are accepted here.
 :::
 
 :::quiz
-question: In Git, which command creates a new branch *and* switches to it?
-answer-input: git checkout -b
-answer-input: git switch -c
-explanation: Both `git checkout -b <branch>` and `git switch -c <branch>` create and switch to a new branch. Both are accepted here.
+question: In a VitePress `config.ts`, which key inside `themeConfig` defines the top navigation bar links?
+answer-input: nav
+explanation: The `nav` array inside `themeConfig` defines the items shown in the top navigation bar.
 :::
 
 ---
 
-## Edge case — single answer (fill-in)
+## Edge case — single fill-in answer
 
 Even with a single accepted answer, fill-in mode works correctly.
 
 :::quiz
-question: What is the default value of the CSS `position` property?
-answer-input: static
-explanation: Every HTML element has `position: static` by default, meaning it follows normal document flow.
+question: What file extension does a standard VitePress configuration file use?
+answer-input: .ts
+answer-input: ts
+explanation: The VitePress config is conventionally named `config.ts` (TypeScript). A plain JS variant `config.js` is also supported, but `.ts` is the default.
 :::

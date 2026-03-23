@@ -74,7 +74,7 @@ shuffle: true
 :::
 
 :::quiz
-question: What CSS property controls text colour?
+question: What CSS property controls text color?
 answer-input: color
 explanation: The `color` property sets the foreground text colour.
 :::

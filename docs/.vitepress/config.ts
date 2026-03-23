@@ -48,8 +48,9 @@ export default defineConfig({
       {
         text: "Examples",
         items: [
-          { text: "Basic", link: "/examples/basic" },
-          { text: "Advanced", link: "/examples/advanced" },
+          { text: "World Capitals", link: "/examples/basic" },
+          { text: "Markdown & VitePress", link: "/examples/advanced" },
+          { text: "JavaScript Quirks", link: "/examples/developer-trivia" },
         ],
       },
     ],
