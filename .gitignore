@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# VitePress cache / build artefacts
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+test-project/.vitepress/cache/
+test-project/.vitepress/dist/
+
+# packed tarballs
+*.tgz
+
+# editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*
+
+# env
+.env
+.env.local
