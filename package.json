@@ -21,6 +21,7 @@
   "readme": "README.md",
   "scripts": {
     "build": "vite build",
+    "typecheck": "vue-tsc",
     "pack": "bun pm pack",
     "lint": "eslint .",
     "format": "prettier --write ."
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
+    "vue-tsc": "^2.2.0",
     "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
