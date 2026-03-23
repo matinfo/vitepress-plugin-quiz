@@ -1,9 +1,9 @@
-import js from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
-import globals from "globals";
-import vue from "eslint-plugin-vue";
-import vueParser from "vue-eslint-parser";
-import tseslint from "typescript-eslint";
+import js from "@eslint/js"
+import eslintConfigPrettier from "eslint-config-prettier"
+import globals from "globals"
+import vue from "eslint-plugin-vue"
+import vueParser from "vue-eslint-parser"
+import tseslint from "typescript-eslint"
 
 export default tseslint.config(
   { ignores: ["**/dist/**", "node_modules/**", "test-project/**", "docs/**", "**/cache/**"] },
@@ -43,4 +43,4 @@ export default tseslint.config(
     },
   },
   eslintConfigPrettier,
-);
+)

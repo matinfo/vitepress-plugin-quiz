@@ -15,7 +15,9 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "readme": "README.md",
   "scripts": {
     "build": "vite build",
