@@ -92,7 +92,7 @@ function quizBlockRule(
 
 /* ── parser ──────────────────────────────────────────────────────────── */
 
-function parseQuizBlock(lines: string[]): QuizData | null {
+export function parseQuizBlock(lines: string[]): QuizData | null {
   let question = ""
   const answers: QuizAnswer[] = []
   let explanation = ""

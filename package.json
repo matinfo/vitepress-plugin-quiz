@@ -27,6 +27,8 @@
     "test:dev": "bun run test:install && bun --cwd test-project run docs:dev",
     "test:dev:only": "bun --cwd test-project run docs:dev",
     "test:build": "bun run test:install && bun --cwd test-project run docs:build",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
@@ -49,6 +51,8 @@
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
+    "markdown-it": "^14.1.0",
+    "vitest": "^3.0.0",
     "vue-tsc": "^2.2.0",
     "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
