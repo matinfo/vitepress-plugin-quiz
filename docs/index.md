@@ -22,7 +22,7 @@ hero:
 features:
   - icon: 📝
     title: Simple Markdown syntax
-    details: Write quizzes directly in your .md files using :::quiz fenced blocks — no Vue components to author.
+    details: Write quizzes directly in your .md files using `:::quiz` fenced blocks — no Vue components to author.
 
   - icon: 🌍
     title: Built-in i18n
