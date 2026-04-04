@@ -1,7 +1,7 @@
 # vitepress-plugin-quiz
 
-[![npm version](https://img.shields.io/npm/v/vitepress-plugin-quiz?color=646cff)](https://www.npmjs.com/package/matinfovitepress-plugin-quiz)
-[![npm downloads](https://img.shields.io/npm/dm/vitepress-plugin-quiz)](https://www.npmjs.com/package/matinfo/vitepress-plugin-quiz)
+[![npm version](https://img.shields.io/npm/v/vitepress-plugin-quiz?color=646cff)](https://www.npmjs.com/package/@matinfo/vitepress-plugin-quiz)
+[![npm downloads](https://img.shields.io/npm/dm/vitepress-plugin-quiz)](https://www.npmjs.com/package/@matinfo/vitepress-plugin-quiz)
 [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-brightgreen)](https://matinfo.github.io/vitepress-plugin-quiz/)
 
