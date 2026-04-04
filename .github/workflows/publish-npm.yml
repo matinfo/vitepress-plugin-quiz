@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 concurrency:
-  group: npm-publish-${{ github.ref }}
+  group: publish-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -36,13 +36,13 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Lint
-        run: bun run lint
+        run: bun run lint --if-present
 
-      - name: Audit
+      - name: Audit dependencies
         run: bun run audit
 
       - name: Build
-        run: bun run build
+        run: bun run build --if-present
 
       - name: Test
         run: bun run test
@@ -70,8 +70,10 @@ jobs:
 
           if npm view "${PACKAGE_NAME}@${PACKAGE_VERSION}" version >/dev/null 2>&1; then
             echo "already_published=true" >> "$GITHUB_OUTPUT"
+            echo "Version already exists on npm."
           else
             echo "already_published=false" >> "$GITHUB_OUTPUT"
+            echo "Version does not exist on npm yet."
           fi
 
       - name: Publish to npm

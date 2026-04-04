@@ -1,7 +1,10 @@
 {
-  "name": "vitepress-plugin-quiz",
-  "version": "0.9.9",
+  "name": "@matinfo/vitepress-plugin-quiz",
+  "version": "1.0.0",
   "description": "A VitePress plugin to add interactive quizzes using :::quiz fenced blocks in Markdown",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./dist/vitepress-plugin-quiz.umd.cjs",
   "module": "./dist/vitepress-plugin-quiz.js",
@@ -89,8 +92,5 @@
     "brace-expansion": "^1.1.13",
     "esbuild": "^0.28.0",
     "picomatch": "^4.0.4"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
