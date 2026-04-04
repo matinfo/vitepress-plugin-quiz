@@ -1,9 +1,12 @@
 # vitepress-plugin-quiz
 
-[![npm version](https://img.shields.io/npm/v/vitepress-plugin-quiz?color=646cff)](https://www.npmjs.com/package/@matinfo/vitepress-plugin-quiz)
-[![npm downloads](https://img.shields.io/npm/dm/vitepress-plugin-quiz)](https://www.npmjs.com/package/@matinfo/vitepress-plugin-quiz)
-[![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-brightgreen)](https://matinfo.github.io/vitepress-plugin-quiz/)
+[![npm version](https://img.shields.io/npm/v/@matinfo/vitepress-plugin-quiz?style=flat-square&label=npm)](https://www.npmjs.com/package/@matinfo/vitepress-plugin-quiz)
+[![downloads](https://img.shields.io/npm/dm/@matinfo/vitepress-plugin-quiz?style=flat-square&label=downloads)](https://www.npmjs.com/package/@matinfo/vitepress-plugin-quiz)
+[![CI](https://img.shields.io/github/actions/workflow/status/matinfo/vitepress-plugin-quiz/ci-plugin.yml?branch=main&style=flat-square&label=CI)](https://github.com/matinfo/vitepress-plugin-quiz/actions/workflows/ci-plugin.yml)
+[![Publish to npm](https://img.shields.io/github/actions/workflow/status/matinfo/vitepress-plugin-quiz/publish-npm.yml?style=flat-square&label=publish)](https://github.com/matinfo/vitepress-plugin-quiz/actions/workflows/publish-npm.yml)
+[![Docs](https://img.shields.io/github/actions/workflow/status/matinfo/vitepress-plugin-quiz/deploy-docs.yml?branch=main&style=flat-square&label=docs)](https://github.com/matinfo/vitepress-plugin-quiz/actions/workflows/deploy-docs.yml)
+[![GitHub Pages](https://img.shields.io/badge/docs-live-2ea44f?style=flat-square)](https://matinfo.github.io/vitepress-plugin-quiz/)
+[![license](https://img.shields.io/npm/l/@matinfo/vitepress-plugin-quiz?style=flat-square)](https://www.npmjs.com/package/@matinfo/vitepress-plugin-quiz)
 
 A VitePress plugin that adds interactive quizzes to your Markdown pages using a simple `:::quiz` fenced block syntax.
 
