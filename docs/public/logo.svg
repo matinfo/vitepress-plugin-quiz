@@ -1,4 +1,5 @@
-<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none"
+  xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">VitePress Quiz Plugin Icon</title>
   <desc id="desc">Rounded card with a question mark, check marks, and lightning accent inspired by Vite-style visuals.</desc>
 
@@ -12,7 +13,7 @@
       <stop offset="1" stop-color="#FFB703"/>
     </linearGradient>
     <filter id="shadow" x="20" y="16" width="216" height="224" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.0"/>
     </filter>
   </defs>
 

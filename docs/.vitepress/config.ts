@@ -9,7 +9,7 @@ export default defineConfig({
 
   head: [
     ["link", { rel: "icon", href: "/vitepress-plugin-quiz/logo.svg" }],
-    ["meta", { name: "theme-color", content: "#646cff" }],
+    ["meta", { name: "theme-color", content: "#8835fc" }],
   ],
 
   themeConfig: {

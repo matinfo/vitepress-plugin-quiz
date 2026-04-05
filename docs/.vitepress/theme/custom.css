@@ -1,0 +1,92 @@
+/* ============================================================
+   Brand palette — derived from #A157FE (purple)
+   Light: slightly darkened for WCAG contrast on white
+   Dark : original / lightened for contrast on dark
+   ============================================================ */
+
+:root {
+  /* Core brand shades */
+  --vp-c-brand-1: #8835fc;   /* primary — links, active nav, buttons  */
+  --vp-c-brand-2: #7720f5;   /* hover / pressed state                 */
+  --vp-c-brand-3: #640ee0;   /* deep accent, heavy borders            */
+
+  /* Soft / tinted surface used for badges, callout bg, kbd */
+  --vp-c-brand-soft: rgba(161, 87, 254, 0.12);
+
+  /* Backgrounds — very subtle purple tint throughout */
+  --vp-c-bg:      #f7f3ff;  /* page base                          */
+  --vp-c-bg-alt:  #f0eaff;  /* sidebar, code block bg             */
+  --vp-c-bg-elv:  #fdfbff;  /* elevated surfaces (dropdown, card) */
+  --vp-c-bg-soft: #ede5ff;  /* inline code, callout bg            */
+
+  /* Borders & dividers — purple-tinted instead of grey */
+  --vp-c-border:  #c9b4f5;
+  --vp-c-divider: #ddd2f8;
+  --vp-c-gutter:  #ddd2f8;
+
+  /* Hero name gradient */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #a157fe 20%,
+    #d4a4ff 70%,
+    #818cf8 100%
+  );
+
+}
+
+.dark {
+  /* Lighten in dark mode — original colour reads well on dark bg */
+  --vp-c-brand-1: #a157fe;   /* exact design colour                   */
+  --vp-c-brand-2: #b572ff;   /* lighter hover state                   */
+  --vp-c-brand-3: #ca8eff;   /* lightest accent                       */
+
+  --vp-c-brand-soft: rgba(161, 87, 254, 0.18);
+
+  /* Backgrounds — deep purple-dark base */
+  --vp-c-bg:      #130d20;  /* page base                          */
+  --vp-c-bg-alt:  #1c1430;  /* sidebar, code block bg             */
+  --vp-c-bg-elv:  #221840;  /* elevated surfaces (dropdown, card) */
+  --vp-c-bg-soft: #1c1430;  /* inline code, callout bg            */
+
+  /* Borders & dividers */
+  --vp-c-border:  #3d2a6b;
+  --vp-c-divider: #2e1f56;
+  --vp-c-gutter:  #2e1f56;
+
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #a157fe 20%,
+    #d4a4ff 65%,
+    #a5b4fc 100%
+  );
+
+}
+
+/* ============================================================
+   Hero logo — soft purple glow that follows the SVG shape
+   ============================================================ */
+.VPHero .image-src {
+  filter:
+    drop-shadow(0 0 18px rgba(161, 87, 254, 0.45))
+    drop-shadow(0 0 6px  rgba(161, 87, 254, 0.30));
+  transition: filter 0.3s ease;
+}
+
+.VPHero .image-src:hover {
+  filter:
+    drop-shadow(0 0 28px rgba(161, 87, 254, 0.65))
+    drop-shadow(0 0 10px rgba(161, 87, 254, 0.45));
+}
+
+.dark .VPHero .image-src {
+  filter:
+    drop-shadow(0 0 22px rgba(161, 87, 254, 0.60))
+    drop-shadow(0 0 8px  rgba(161, 87, 254, 0.40));
+}
+
+.dark .VPHero .image-src:hover {
+  filter:
+    drop-shadow(0 0 34px rgba(161, 87, 254, 0.80))
+    drop-shadow(0 0 14px rgba(161, 87, 254, 0.55));
+}
