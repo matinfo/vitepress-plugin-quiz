@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress"
 import { quizMarkdownPlugin } from "vitepress-plugin-quiz"
+import pkg from "../../package.json"
 
 export default defineConfig({
   title: "vitepress-plugin-quiz",
@@ -20,7 +21,7 @@ export default defineConfig({
       { text: "Guide", link: "/guide/getting-started" },
       { text: "Examples", link: "/examples/basic" },
       {
-        text: "1.0.1",
+        text: pkg.version,
         items: [
           {
             text: "Changelog",
