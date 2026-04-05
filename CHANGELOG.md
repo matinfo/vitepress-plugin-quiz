@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-04-05
+
+### Changed
+
+- CI: restructured GitHub Actions workflows for coherence (Proposal B).
+  - `ci-plugin.yml`: removed `feature/**`/`fix/**` push triggers (PRs already cover them); added `typecheck` step.
+  - `publish-npm.yml`: split into `validate` → `publish` → `github-release` jobs; added `--provenance` flag; automated GitHub Release creation; fixed missing `NODE_AUTH_TOKEN`.
+  - `deploy-docs.yml`: removed redundant tag trigger (GitHub Pages only allows deploys from `main`); added `--frozen-lockfile` to install step.
+- Chore: `docs/package.json` — removed `version` field (private, never published; version read from root `package.json`).
+- Chore: `test-project/package.json` — removed `version` field (private test package).
+- Chore: `docs/.vitepress/config.ts` — nav version badge now reads dynamically from root `package.json` instead of a hardcoded string.
+
 ## [1.0.1] - 2026-04-05
 
 ### Changed
@@ -32,5 +44,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - VitePress docs site deployed to GitHub Pages.
 - GitHub Actions workflows for docs deployment (on push to `main`) and npm publish (on `v*` tag).
 
+[1.0.2]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/matinfo/vitepress-plugin-quiz/releases/tag/v1.0.0
