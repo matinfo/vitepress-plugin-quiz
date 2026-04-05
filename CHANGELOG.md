@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-04-05
+
+### Changed
+
+- Docs: added custom VitePress theme (`custom.css`) with a purple brand palette derived from `#A157FE` — sets `--vp-c-brand-1/2/3`, tinted backgrounds, borders, and dividers for both light and dark mode.
+- Docs: hero title now renders with a purple-to-lavender gradient via `--vp-home-hero-name-background`.
+- Docs: hero logo gains a soft CSS `drop-shadow` glow that matches the brand colour; intensifies on hover.
+- Docs: removed the hardcoded `feDropShadow` from `logo.svg` (replaced by CSS glow).
+- Docs: `theme-color` meta updated to `#8835fc`.
+
 ## [1.0.0] - 2026-03-23
 
 ### Added
@@ -22,4 +32,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - VitePress docs site deployed to GitHub Pages.
 - GitHub Actions workflows for docs deployment (on push to `main`) and npm publish (on `v*` tag).
 
+[1.0.1]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/matinfo/vitepress-plugin-quiz/releases/tag/v1.0.0
