@@ -1,6 +1,5 @@
 {
   "name": "vitepress-plugin-quiz-docs",
-  "version": "1.0.1",
   "private": true,
   "type": "module",
   "scripts": {

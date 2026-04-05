@@ -26,8 +26,6 @@
     "build": "vite build",
     "typecheck": "vue-tsc",
     "pack": "bun pm pack",
-    "version:sync": "node scripts/sync-docs-version.mjs",
-    "version": "node scripts/sync-docs-version.mjs && git add docs/package.json",
     "test:install": "bun run build && bun run pack && bun install --cwd test-project",
     "test:dev": "bun run test:install && bun --cwd test-project run docs:dev",
     "test:dev:only": "bun --cwd test-project run docs:dev",
