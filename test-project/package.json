@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "vitepress": "^1.6.3",
-    "vitepress-plugin-quiz": "file:../vitepress-plugin-quiz-1.0.0.tgz",
+    "@matinfo/vitepress-plugin-quiz": "file:../matinfo-vitepress-plugin-quiz-1.0.2.tgz",
     "vue": "^3.5.13"
   },
   "engines": {

@@ -5,19 +5,19 @@
 ::: code-group
 
 ```sh [bun]
-bun add vitepress-plugin-quiz
+bun add @matinfo/vitepress-plugin-quiz
 ```
 
 ```sh [npm]
-npm install vitepress-plugin-quiz
+npm install @matinfo/vitepress-plugin-quiz
 ```
 
 ```sh [yarn]
-yarn add vitepress-plugin-quiz
+yarn add @matinfo/vitepress-plugin-quiz
 ```
 
 ```sh [pnpm]
-pnpm add vitepress-plugin-quiz
+pnpm add @matinfo/vitepress-plugin-quiz
 ```
 
 :::
@@ -29,7 +29,7 @@ In your `.vitepress/config.ts`, enable the `:::quiz` block parser:
 ```ts
 // .vitepress/config.ts
 import { defineConfig } from "vitepress"
-import { quizMarkdownPlugin } from "vitepress-plugin-quiz"
+import { quizMarkdownPlugin } from "@matinfo/vitepress-plugin-quiz"
 
 export default defineConfig({
   // ...
@@ -48,7 +48,7 @@ In your custom theme entry point, call `enhanceAppWithQuiz`:
 ```ts
 // .vitepress/theme/index.ts
 import DefaultTheme from "vitepress/theme"
-import { enhanceAppWithQuiz } from "vitepress-plugin-quiz"
+import { enhanceAppWithQuiz } from "@matinfo/vitepress-plugin-quiz"
 import type { Theme } from "vitepress"
 
 export default {

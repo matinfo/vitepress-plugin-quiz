@@ -26,10 +26,10 @@ A VitePress plugin that adds interactive quizzes to your Markdown pages using a 
 
 ```sh
 # bun
-bun add vitepress-plugin-quiz
+bun add @matinfo/vitepress-plugin-quiz
 
 # npm
-npm install vitepress-plugin-quiz
+npm install @matinfo/vitepress-plugin-quiz
 ```
 
 ### 2. Register the markdown plugin
@@ -37,7 +37,7 @@ npm install vitepress-plugin-quiz
 ```ts
 // .vitepress/config.ts
 import { defineConfig } from "vitepress"
-import { quizMarkdownPlugin } from "vitepress-plugin-quiz"
+import { quizMarkdownPlugin } from "@matinfo/vitepress-plugin-quiz"
 
 export default defineConfig({
   markdown: {
@@ -53,7 +53,7 @@ export default defineConfig({
 ```ts
 // .vitepress/theme/index.ts
 import DefaultTheme from "vitepress/theme"
-import { enhanceAppWithQuiz } from "vitepress-plugin-quiz"
+import { enhanceAppWithQuiz } from "@matinfo/vitepress-plugin-quiz"
 import type { Theme } from "vitepress"
 
 export default {
@@ -111,7 +111,7 @@ Access locale strings directly. `getLocale` falls back to English for unknown co
 All TypeScript interfaces are re-exported from the main entry:
 
 ```ts
-import type { QuizData, QuizAnswer, QuizLocale, QuizState } from "vitepress-plugin-quiz"
+import type { QuizData, QuizAnswer, QuizLocale, QuizState } from "@matinfo/vitepress-plugin-quiz"
 ```
 
 ---

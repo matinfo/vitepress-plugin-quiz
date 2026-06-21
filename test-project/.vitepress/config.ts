@@ -1,5 +1,5 @@
 import { defineConfig } from "vitepress"
-import { quizMarkdownPlugin } from "vitepress-plugin-quiz"
+import { quizMarkdownPlugin } from "@matinfo/vitepress-plugin-quiz"
 
 export default defineConfig({
   title: "Quiz Test Project",

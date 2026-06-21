@@ -7,7 +7,7 @@
 **Fix:** Make sure `quizMarkdownPlugin` is added in your `.vitepress/config.ts`:
 
 ```ts
-import { quizMarkdownPlugin } from "vitepress-plugin-quiz"
+import { quizMarkdownPlugin } from "@matinfo/vitepress-plugin-quiz"
 
 export default defineConfig({
   markdown: {
@@ -28,7 +28,7 @@ export default defineConfig({
 
 ```ts
 // .vitepress/theme/index.ts
-import { enhanceAppWithQuiz } from "vitepress-plugin-quiz"
+import { enhanceAppWithQuiz } from "@matinfo/vitepress-plugin-quiz"
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
@@ -66,7 +66,7 @@ The Validate button is enabled only when **every** question on the page has been
 
 ---
 
-## TypeScript error: cannot find module `vitepress-plugin-quiz`
+## TypeScript error: cannot find module `@matinfo/vitepress-plugin-quiz`
 
 Ensure the package is installed and your `tsconfig.json` resolves modules correctly:
 

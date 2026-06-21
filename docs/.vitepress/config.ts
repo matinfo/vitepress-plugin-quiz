@@ -1,10 +1,11 @@
 import { defineConfig } from "vitepress"
-import { quizMarkdownPlugin } from "vitepress-plugin-quiz"
+import { quizMarkdownPlugin } from "@matinfo/vitepress-plugin-quiz"
 import pkg from "../../package.json"
 
 export default defineConfig({
   title: "vitepress-plugin-quiz",
-  description: "Interactive quizzes in your VitePress docs — multiple-choice, fill-in-the-blank, i18n, sessionStorage persistence.",
+  description:
+    "Interactive quizzes in your VitePress docs — multiple-choice, fill-in-the-blank, i18n, sessionStorage persistence.",
 
   base: "/vitepress-plugin-quiz/",
 
@@ -61,9 +62,7 @@ export default defineConfig({
       text: "Edit this page on GitHub",
     },
 
-    socialLinks: [
-      { icon: "github", link: "https://github.com/matinfo/vitepress-plugin-quiz" },
-    ],
+    socialLinks: [{ icon: "github", link: "https://github.com/matinfo/vitepress-plugin-quiz" }],
 
     footer: {
       message: "Released under the GPL-3.0 License.",

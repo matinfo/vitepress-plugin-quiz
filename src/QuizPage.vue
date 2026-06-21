@@ -104,7 +104,8 @@ function clearState() {
 
 <template>
   <div class="quiz-page" role="region" aria-label="Quiz">
-    <div class="quiz-progress-bar" role="progressbar"
+    <div
+class="quiz-progress-bar" role="progressbar"
       :aria-valuenow="answeredCount"
       :aria-valuemin="0"
       :aria-valuemax="totalQuestions"
@@ -135,7 +136,8 @@ function clearState() {
       </button>
 
       <template v-if="validated">
-        <div class="quiz-score" role="status" aria-live="polite"
+        <div
+class="quiz-score" role="status" aria-live="polite"
           :aria-label="correctCount + ' / ' + totalQuestions + ' ' + t.correctAnswers(correctCount)"
         >
           <span class="quiz-score-value">{{ correctCount }} / {{ totalQuestions }}</span>

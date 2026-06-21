@@ -30,7 +30,7 @@ The `test-project/` directory is a local VitePress site that consumes the plugin
 
 ```sh
 # 1. Pack the built library
-bun run pack        # produces vitepress-plugin-quiz-x.x.x.tgz
+bun run pack        # produces matinfo-vitepress-plugin-quiz-x.x.x.tgz
 
 # 2. Install in test-project (tgz is referenced via file: in its package.json)
 cd test-project && bun install

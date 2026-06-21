@@ -16,7 +16,7 @@ export { QuizQuestion, QuizPage }
  *
  * @example
  * // .vitepress/theme/index.ts
- * import { enhanceAppWithQuiz } from 'vitepress-plugin-quiz'
+ * import { enhanceAppWithQuiz } from '@matinfo/vitepress-plugin-quiz'
  * export default {
  *   enhanceApp({ app }) {
  *     enhanceAppWithQuiz(app)        // English (default)
