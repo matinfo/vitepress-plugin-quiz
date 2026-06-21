@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2026-06-21
+
+### Fixed
+
+- Package: aligned project configurations, documentations, and workspace files to use the correct scoped `@matinfo/vitepress-plugin-quiz` package name instead of `vitepress-plugin-quiz`.
+- Package: updated integration test-project dependency path to target the correct scoped version tarball, fixing the package extraction/integrity failure on local installation.
+- Build/CLI: removed redundant `run` keyword from Bun `--cwd` scripts in `package.json` for proper compatibility.
+- Style: resolved outstanding ESLint attribute linebreak warnings in `src/QuizPage.vue`.
+
 ## [1.0.2] - 2026-04-05
 
 ### Changed
@@ -44,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - VitePress docs site deployed to GitHub Pages.
 - GitHub Actions workflows for docs deployment (on push to `main`) and npm publish (on `v*` tag).
 
+[1.0.3]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/matinfo/vitepress-plugin-quiz/releases/tag/v1.0.0

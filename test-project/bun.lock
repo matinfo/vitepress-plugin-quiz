@@ -5,7 +5,7 @@
     "": {
       "name": "vitepress-plugin-quiz-test",
       "dependencies": {
-        "@matinfo/vitepress-plugin-quiz": "file:../matinfo-vitepress-plugin-quiz-1.0.2.tgz",
+        "@matinfo/vitepress-plugin-quiz": "file:../matinfo-vitepress-plugin-quiz-1.0.3.tgz",
         "vitepress": "^1.6.3",
         "vue": "^3.5.13",
       },
@@ -114,7 +114,7 @@
 
     "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.5", "", {}, "sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og=="],
 
-    "@matinfo/vitepress-plugin-quiz": ["@matinfo/vitepress-plugin-quiz@../matinfo-vitepress-plugin-quiz-1.0.2.tgz", { "peerDependencies": { "vitepress": "^1.0.0", "vue": "^3.0.0" } }, "sha512-cvXToJPPficEqT4Er4pqV4ZWdkq9jrtArSqQPsWgYLMHUN/l4KF5rf+Jbyy4yXyOrPNg9NKpl/jxyIMJVxDz1A=="],
+    "@matinfo/vitepress-plugin-quiz": ["@matinfo/vitepress-plugin-quiz@../matinfo-vitepress-plugin-quiz-1.0.3.tgz", { "peerDependencies": { "vitepress": "^1.0.0", "vue": "^3.0.0" } }, "sha512-EV3v7zAvZInerxlRg1TEgZdKm0O3+W7WJyoiPNFuye0sjgUnNhC1BDqeGClo3VrMn3kOAjrVVRgrj7pdVlV/jw=="],
 
     "@rollup/rollup-android-arm-eabi": ["@rollup/rollup-android-arm-eabi@4.60.0", "", { "os": "android", "cpu": "arm" }, "sha512-WOhNW9K8bR3kf4zLxbfg6Pxu2ybOUbB2AjMDHSQx86LIF4rH4Ft7vmMwNt0loO0eonglSNy4cpD3MKXXKQu0/A=="],
 
