@@ -1,6 +1,6 @@
 {
   "name": "@matinfo/vitepress-plugin-quiz",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A VitePress plugin to add interactive quizzes using :::quiz fenced blocks in Markdown",
   "publishConfig": {
     "access": "public"
