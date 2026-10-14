@@ -32,6 +32,9 @@ jobs:
           bun-version: latest
           no-cache: true # release pipeline: avoid restoring a poisoned cache
 
+      - name: Upgrade npm (trusted publishing needs >= 11.5.1)
+        run: npm install -g npm@11
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
@@ -115,9 +118,8 @@ jobs:
 
       - name: Publish to npm
         if: steps.npm_check.outputs.already_published == 'false'
+        # Authenticates via OIDC trusted publishing (no NPM_TOKEN)
         run: npm publish --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Skip publish
         if: steps.npm_check.outputs.already_published == 'true'
