@@ -110,3 +110,12 @@ answer: `reduce`
 explanation: `Array.prototype.map()` returns a new array where each element is the result of calling the callback. `forEach` returns `undefined`.
 shuffle: true
 :::
+
+:::quiz
+question: Match each technology to its role
+pair: HTML => Structure
+pair: CSS => Presentation
+pair: JavaScript => Behaviour
+distractor: Database
+explanation: The three core web languages each own one concern.
+:::

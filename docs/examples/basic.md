@@ -90,3 +90,20 @@ answer-correct: Ottawa
 answer: Montréal
 explanation: **Ottawa**, in Ontario, has been Canada's capital since 1857 — chosen by Queen Victoria as a neutral compromise between the rival cities of Toronto and Montréal.
 :::
+
+---
+
+## Association
+
+Match each country to its capital with the drop-downs. Options are built from the pairs.
+
+:::quiz
+question: Match each country to its capital
+pair: France => Paris
+pair: Japan => Tokyo
+pair: Canada => Ottawa
+pair: Brazil => Brasília
+distractor: Toronto
+explanation: **Ottawa**, not Toronto, is the capital of Canada.
+shuffle: true
+:::

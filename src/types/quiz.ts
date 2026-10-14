@@ -4,11 +4,18 @@ export interface QuizAnswer {
   originalIndex?: number
 }
 
+export interface QuizPair {
+  left: string
+  right: string
+}
+
 export interface QuizData {
   question: string
-  type: "choice" | "input"
+  type: "choice" | "input" | "association"
   answers: QuizAnswer[]
   expected: string[]
+  pairs: QuizPair[]
+  options: string[]
   explanation: string
   shuffle: boolean
 }
@@ -23,6 +30,8 @@ export interface QuizLocale {
   inputHint: string
   inputPlaceholder: string
   expectedAnswer: string
+  associationHint: string
+  associationPlaceholder: string
 }
 
 export interface QuizState {
@@ -40,4 +49,9 @@ export interface SavedInputAnswer {
   input: string
 }
 
-export type SavedAnswer = SavedChoiceAnswer | SavedInputAnswer
+export interface SavedAssociationAnswer {
+  type: "association"
+  chosen: (number | null)[]
+}
+
+export type SavedAnswer = SavedChoiceAnswer | SavedInputAnswer | SavedAssociationAnswer

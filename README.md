@@ -81,10 +81,19 @@ question: What CSS property controls text color?
 answer-input: color
 explanation: The `color` property sets the foreground text colour.
 :::
+
+:::quiz
+question: Match each language to its category
+pair: TypeScript => Compiled
+pair: Python => Interpreted
+pair: HTML => Markup
+distractor: Query language
+:::
 ```
 
 ### Syntax notes
 
+- Association: two or more `pair: Item => Match` (or `pair: Item --> Match`) lines render one drop-down per item; options are derived from the right-hand values (plus optional `distractor:` lines). All rows must match for a correct answer.
 - Keys are case-insensitive (`Question:`, `ANSWER-CORRECT:`).
 - Values can span several lines: any line that is not a known key continues the previous `question`, `answer`/`answer-correct` or `explanation`.
 - Fill-in-the-blank answers are lenient: capitals, accents, surrounding and repeated spaces are ignored (`reseau` matches `Réseau`). Repeat `answer-input:` to accept several variants.

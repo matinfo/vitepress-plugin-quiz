@@ -27,7 +27,7 @@ function shuffleArray<T>(arr: T[]): T[] {
 // Shuffled answers — computed once at mount, re-shuffled on reset
 const shuffledAnswers = ref<(QuizAnswer & { originalIndex: number })[]>([])
 function initAnswers() {
-  if (!rawQuiz.value || rawQuiz.value.type === "input") {
+  if (!rawQuiz.value || rawQuiz.value.type !== "choice") {
     shuffledAnswers.value = []
     return
   }
@@ -45,9 +45,10 @@ const quiz = computed(() => {
 })
 
 const isInputMode = computed(() => rawQuiz.value?.type === 'input')
+const isAssociation = computed(() => rawQuiz.value?.type === 'association')
 
 const correctCount = computed(() =>
-  quiz.value && !isInputMode.value
+  quiz.value && !isInputMode.value && !isAssociation.value
     ? quiz.value.answers.filter((a) => a.correct).length
     : 0
 )
@@ -55,6 +56,21 @@ const isMultiple = computed(() => correctCount.value > 1)
 
 // Selected answers, by ORIGINAL index (stable across shuffles and reloads)
 const selected = ref(new Set<number>())
+// Association: chosen option index (into rawQuiz.options) per pair row, null = empty
+const chosen = ref<(number | null)[]>([])
+// Association: option display order (original option indices)
+const optionOrder = ref<number[]>([])
+function initAssociation() {
+  const q = rawQuiz.value
+  if (!q || q.type !== "association") {
+    chosen.value = []
+    optionOrder.value = []
+    return
+  }
+  chosen.value = q.pairs.map(() => null)
+  const order = q.options.map((_, i) => i)
+  optionOrder.value = q.shuffle ? shuffleArray(order) : order
+}
 // Text input value (for fill-in-the-blank mode)
 const inputValue = ref("")
 
@@ -71,6 +87,9 @@ const getAnswer = inject<((id: number) => SavedAnswer | null) | null>("quiz-get-
 const myId: number | null = getQuestionId ? getQuestionId() : null
 
 const answered = computed(() => {
+  if (isAssociation.value) {
+    return chosen.value.length > 0 && chosen.value.every((c) => c !== null)
+  }
   if (isInputMode.value) return inputValue.value.trim().length > 0
   return selected.value.size > 0
 })
@@ -82,6 +101,10 @@ const isCorrect = computed(() => {
     // Case-insensitive comparison against any accepted variant
     const input = normalizeInput(inputValue.value)
     return rawQuiz.value!.expected.some((e) => input === normalizeInput(e))
+  }
+
+  if (isAssociation.value) {
+    return rawQuiz.value!.pairs.every((_, i) => rowCorrect(i))
   }
 
   const correctIndices = new Set(
@@ -96,6 +119,13 @@ const isCorrect = computed(() => {
   return true
 })
 
+function rowCorrect(i: number): boolean {
+  const q = rawQuiz.value
+  const c = chosen.value[i]
+  if (!q || c === null || c === undefined) return false
+  return q.options[c] === q.pairs[i].right
+}
+
 // Register this question with the parent page
 if (register && rawQuiz.value) {
   const unregister = register({ answered, isCorrect })
@@ -107,17 +137,25 @@ watch(resetCounter, () => {
   selected.value = new Set()
   inputValue.value = ''
   initAnswers()
+  initAssociation()
 })
 
 onMounted(() => {
   initAnswers()
+  initAssociation()
   // Restore saved answer state
   if (getAnswer && myId !== null) {
     const saved = getAnswer(myId)
     if (saved) {
       if (saved.type === "input" && isInputMode.value && typeof saved.input === "string") {
         inputValue.value = saved.input
-      } else if (saved.type === "choice" && !isInputMode.value && Array.isArray(saved.selected)) {
+      } else if (saved.type === "association" && isAssociation.value && Array.isArray(saved.chosen)) {
+        const max = rawQuiz.value?.options.length ?? 0
+        chosen.value = chosen.value.map((_, i) => {
+          const v = saved.chosen[i]
+          return typeof v === "number" && Number.isInteger(v) && v >= 0 && v < max ? v : null
+        })
+      } else if (saved.type === "choice" && !isAssociation.value && !isInputMode.value && Array.isArray(saved.selected)) {
         const max = rawQuiz.value?.answers.length ?? 0
         selected.value = new Set(
           saved.selected.filter((i) => Number.isInteger(i) && i >= 0 && i < max),
@@ -126,6 +164,15 @@ onMounted(() => {
     }
   }
 })
+
+function onSelect(row: number, event: Event) {
+  if (validated.value) return
+  const v = (event.target as HTMLSelectElement).value
+  const next = [...chosen.value]
+  next[row] = v === "" ? null : Number(v)
+  chosen.value = next
+  persistState()
+}
 
 function toggle(orig: number) {
   if (validated.value) return
@@ -148,7 +195,9 @@ watch(inputValue, () => {
 
 function persistState() {
   if (!saveAnswer || myId === null) return
-  if (isInputMode.value) {
+  if (isAssociation.value) {
+    saveAnswer(myId, { type: "association", chosen: [...chosen.value] })
+  } else if (isInputMode.value) {
     saveAnswer(myId, { type: "input", input: inputValue.value })
   } else {
     saveAnswer(myId, { type: "choice", selected: [...selected.value] })
@@ -164,6 +213,11 @@ function answerClass(answer: QuizAnswer & { originalIndex: number }): string {
   if (answer.correct && !wasPicked) return "quiz-answer missed"
   if (!answer.correct && wasPicked) return "quiz-answer wrong"
   return "quiz-answer"
+}
+
+function rowClass(i: number): string {
+  if (!validated.value) return "quiz-assoc-select"
+  return rowCorrect(i) ? "quiz-assoc-select correct" : "quiz-assoc-select wrong"
 }
 
 const inputClass = computed(() => {
@@ -186,7 +240,7 @@ import { parseRichText, normalizeInput } from './utils'
     </legend>
 
     <!-- Choice mode -->
-    <template v-if="!isInputMode">
+    <template v-if="!isInputMode && !isAssociation">
       <p v-if="isMultiple" class="quiz-hint">{{ t.multipleHint }}</p>
       <ul class="quiz-answers" role="listbox" :aria-multiselectable="isMultiple">
         <li
@@ -222,8 +276,42 @@ import { parseRichText, normalizeInput } from './utils'
       </ul>
     </template>
 
+    <!-- Association mode -->
+    <template v-if="isAssociation && rawQuiz">
+      <p class="quiz-hint">{{ t.associationHint }}</p>
+      <div class="quiz-association">
+        <template v-for="(pair, i) in rawQuiz.pairs" :key="i">
+          <label class="quiz-assoc-label" :for="`quiz-assoc-${myId}-${i}`">
+            <template v-for="(part, pi) in parseRichText(pair.left)" :key="pi">
+              <strong v-if="part.type === 'bold'">{{ part.value }}</strong>
+              <em v-else-if="part.type === 'italic'">{{ part.value }}</em>
+              <code v-else-if="part.type === 'code'">{{ part.value }}</code>
+              <template v-else>{{ part.value }}</template>
+            </template>
+          </label>
+          <div class="quiz-assoc-cell">
+            <select
+              :id="`quiz-assoc-${myId}-${i}`"
+              :class="rowClass(i)"
+              :value="chosen[i] === null || chosen[i] === undefined ? '' : String(chosen[i])"
+              :disabled="validated"
+              @change="onSelect(i, $event)"
+            >
+              <option value="">{{ t.associationPlaceholder }}</option>
+              <option v-for="oi in optionOrder" :key="oi" :value="String(oi)">
+                {{ rawQuiz.options[oi] }}
+              </option>
+            </select>
+            <p v-if="validated && !rowCorrect(i)" class="quiz-expected">
+              {{ t.expectedAnswer }} <code>{{ pair.right }}</code>
+            </p>
+          </div>
+        </template>
+      </div>
+    </template>
+
     <!-- Fill-in-the-blank mode -->
-    <template v-if="isInputMode">
+    <template v-if="isInputMode && !isAssociation">
       <p class="quiz-hint">{{ t.inputHint }}</p>
       <div class="quiz-input-wrapper">
         <input
