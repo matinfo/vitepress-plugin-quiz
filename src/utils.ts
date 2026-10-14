@@ -9,7 +9,7 @@ export type RichPart = { type: "text" | "bold" | "italic" | "code"; value: strin
  */
 export function parseRichText(text: string): RichPart[] {
   const parts: RichPart[] = []
-  const re = /(\*\*(.+?)\*\*)|(\*(.+?)\*)|(`([^`]+)`)/g
+  const re = /(\*\*(?!\s)(.+?)\*\*)|(\*(?!\s)(.+?)(?<!\s)\*)|(`([^`]+)`)/g
   let last = 0
   let m
   while ((m = re.exec(text)) !== null) {
@@ -21,4 +21,17 @@ export function parseRichText(text: string): RichPart[] {
   }
   if (last < text.length) parts.push({ type: "text", value: text.slice(last) })
   return parts
+}
+
+/**
+ * Normalise a typed answer for lenient comparison: case-insensitive,
+ * accent-insensitive ("Réseau" == "reseau"), trimmed, whitespace collapsed.
+ */
+export function normalizeInput(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase()
 }

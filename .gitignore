@@ -13,6 +13,9 @@ test-project/.vitepress/dist/
 # packed tarballs
 *.tgz
 
+# codegraph index
+.codegraph/
+
 # editor
 .vscode/
 .idea/

@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2026-10-14
+
+### Fixed
+
+- Shuffled quizzes restored the wrong selection after reload/navigation; selections are now stored by original answer index.
+- Saved answers with out-of-range indices or a mismatched type are ignored.
+- Unmounted questions are removed from the page's progress/score totals.
+- A page with no valid question no longer enables "Validate".
+- `2 * 3 * 4` is no longer rendered as italic.
+- Test `.d.ts` files are no longer published in `dist/`.
+
+### Security
+
+- Resolved 33 dependency advisories (brace-expansion, markdown-it/linkify-it, @vue/server-renderer, postcss, fast-uri, js-yaml, vitest, …) via updates and overrides; vitest 3 → 5.
+- `audit` ignores GHSA-hp3w-g68c-fv3c (`sprintf-js`, dev-only transitive via argparse, no patched release yet).
+
+### Changed
+
+- Fill-in-the-blank matching ignores capitals, accents and extra whitespace.
+- Parser: case-insensitive keys, multi-line values, 4-space indented blocks are code, not quizzes.
+- Build-time warnings for invalid blocks and choice quizzes without a correct answer.
+
+### Added
+
+- Component and markdown-plugin test suites (happy-dom + @vue/test-utils).
+
 ## [1.0.5] - 2026-06-28
 
 ### Security
@@ -68,6 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - VitePress docs site deployed to GitHub Pages.
 - GitHub Actions workflows for docs deployment (on push to `main`) and npm publish (on `v*` tag).
 
+[1.0.6]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/matinfo/vitepress-plugin-quiz/compare/v1.0.2...v1.0.3

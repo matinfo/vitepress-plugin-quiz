@@ -21,6 +21,11 @@ let questionIdx = 0
 provide("quiz-validated", validated)
 provide("quiz-register", (q: QuizState) => {
   questions.value.push(q)
+  // returned disposer keeps counts correct on unmount (HMR, v-if)
+  return () => {
+    const i = questions.value.indexOf(q)
+    if (i >= 0) questions.value.splice(i, 1)
+  }
 })
 
 // Per-question persistence: each question gets a unique sub-key
@@ -50,7 +55,9 @@ const answeredCount = computed(() =>
 const correctCount = computed(() =>
   questions.value.filter((q) => q.isCorrect).length
 )
-const allAnswered = computed(() => answeredCount.value === totalQuestions.value)
+const allAnswered = computed(
+  () => totalQuestions.value > 0 && answeredCount.value === totalQuestions.value,
+)
 const progressPct = computed(() =>
   totalQuestions.value ? Math.round((answeredCount.value / totalQuestions.value) * 100) : 0
 )
