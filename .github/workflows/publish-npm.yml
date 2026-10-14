@@ -74,7 +74,7 @@ jobs:
       - name: Setup Node.js for npm publish
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 22.14.0
+          node-version: 24.22.0 # bundles npm 11.19 (trusted publishing needs >= 11.5.1)
           registry-url: 'https://registry.npmjs.org'
           package-manager-cache: false # release pipeline: no caching to poison
 
@@ -115,9 +115,8 @@ jobs:
 
       - name: Publish to npm
         if: steps.npm_check.outputs.already_published == 'false'
+        # Authenticates via OIDC trusted publishing (no NPM_TOKEN)
         run: npm publish --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Skip publish
         if: steps.npm_check.outputs.already_published == 'true'
