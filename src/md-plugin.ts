@@ -4,6 +4,16 @@ import type { QuizData, QuizAnswer } from "./types/quiz"
 
 const QUIZ_RE = /^:::quiz\s*$/
 const CLOSE_RE = /^:::\s*$/
+const KEY_RE = /^([A-Za-z-]+):(.*)$/
+const KNOWN_KEYS = new Set([
+  "question",
+  "answer",
+  "answer-correct",
+  "answer-input",
+  "explanation",
+  "explication",
+  "shuffle",
+])
 
 /**
  * Register the quiz block rule on a markdown-it instance.
@@ -50,6 +60,9 @@ function quizBlockRule(
   silent: boolean,
   escapeHtml: (s: string) => string,
 ): boolean {
+  // 4+ spaces of indentation is an indented code block, not a quiz
+  if (state.sCount[startLine] - state.blkIndent >= 4) return false
+
   const startPos = state.bMarks[startLine] + state.tShift[startLine]
   const startMax = state.eMarks[startLine]
   const lineText = state.src.slice(startPos, startMax)
@@ -79,7 +92,19 @@ function quizBlockRule(
   }
 
   const data = parseQuizBlock(innerLines)
-  if (!data) return false
+  if (data?.type === "choice" && !data.answers.some((a) => a.correct)) {
+    console.warn(
+      `[vitepress-plugin-quiz] :quiz block at line ${startLine + 1} has no 'answer-correct:'; ` +
+        "it can never be answered correctly.",
+    )
+  }
+  if (!data) {
+    console.warn(
+      `[vitepress-plugin-quiz] Ignored invalid :::quiz block at line ${startLine + 1}: ` +
+        "needs a 'question:' and at least one 'answer:'/'answer-correct:' or 'answer-input:'.",
+    )
+    return false
+  }
 
   const token = state.push("quiz", "", 0)
   token.content = renderQuizComponent(data, escapeHtml)
@@ -99,25 +124,47 @@ export function parseQuizBlock(lines: string[]): QuizData | null {
   const expected: string[] = []
   let shuffle = false
 
+  // Lines that are not a known `key:` continue the previous field (multi-line values).
+  let append: ((extra: string) => void) | null = null
+
   for (const raw of lines) {
     const line = raw.trim()
     if (!line) continue
 
-    if (line.startsWith("question:")) {
-      question = line.slice("question:".length).trim()
-    } else if (line.startsWith("answer-correct:")) {
-      answers.push({ text: line.slice("answer-correct:".length).trim(), correct: true })
-    } else if (line.startsWith("answer-input:")) {
-      expected.push(line.slice("answer-input:".length).trim())
-    } else if (line.startsWith("answer:")) {
-      answers.push({ text: line.slice("answer:".length).trim(), correct: false })
-    } else if (line.startsWith("explanation:")) {
-      explanation = line.slice("explanation:".length).trim()
-    } else if (line.startsWith("explication:")) {
-      // legacy French alias
-      explanation = line.slice("explication:".length).trim()
-    } else if (line.startsWith("shuffle:")) {
-      shuffle = line.slice("shuffle:".length).trim().toLowerCase() === "true"
+    const m = KEY_RE.exec(line)
+    const key = m?.[1].toLowerCase()
+    if (!m || !key || !KNOWN_KEYS.has(key)) {
+      append?.(line)
+      continue
+    }
+    const value = m[2].trim()
+    const join = (cur: string, extra: string) => (cur ? `${cur} ${extra}` : extra)
+
+    switch (key) {
+      case "question":
+        question = value
+        append = (x) => (question = join(question, x))
+        break
+      case "answer-correct":
+      case "answer": {
+        const entry: QuizAnswer = { text: value, correct: key === "answer-correct" }
+        answers.push(entry)
+        append = (x) => (entry.text = join(entry.text, x))
+        break
+      }
+      case "answer-input":
+        if (value) expected.push(value)
+        append = null
+        break
+      case "explanation":
+      case "explication": // legacy French alias
+        explanation = value
+        append = (x) => (explanation = join(explanation, x))
+        break
+      case "shuffle":
+        shuffle = value.toLowerCase() === "true"
+        append = null
+        break
     }
   }
 

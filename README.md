@@ -83,6 +83,13 @@ explanation: The `color` property sets the foreground text colour.
 :::
 ```
 
+### Syntax notes
+
+- Keys are case-insensitive (`Question:`, `ANSWER-CORRECT:`).
+- Values can span several lines: any line that is not a known key continues the previous `question`, `answer`/`answer-correct` or `explanation`.
+- Fill-in-the-blank answers are lenient: capitals, accents, surrounding and repeated spaces are ignored (`reseau` matches `Réseau`). Repeat `answer-input:` to accept several variants.
+- Invalid blocks (no question, no answers) and choice quizzes without `answer-correct` log a build-time warning with the line number.
+
 ---
 
 ## Documentation

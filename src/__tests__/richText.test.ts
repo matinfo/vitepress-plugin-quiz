@@ -52,3 +52,33 @@ describe("parseRichText", () => {
     ])
   })
 })
+
+import { normalizeInput } from "../utils"
+
+describe("parseRichText — false positives", () => {
+  it("does not italicise spaced asterisks like 2 * 3 * 4", () => {
+    expect(parseRichText("2 * 3 * 4")).toEqual([{ type: "text", value: "2 * 3 * 4" }])
+  })
+  it("keeps asterisks inside code", () => {
+    expect(parseRichText("`a*b*`")).toEqual([{ type: "code", value: "a*b*" }])
+  })
+  it("leaves unmatched markers as text", () => {
+    expect(parseRichText("a ** b")).toEqual([{ type: "text", value: "a ** b" }])
+  })
+})
+
+describe("normalizeInput", () => {
+  it("trims, lowercases, collapses whitespace", () => {
+    expect(normalizeInput("  Git \t  INIT\n")).toBe("git init")
+  })
+  it("treats composed and decomposed accents as equal", () => {
+    expect(normalizeInput("é")).toBe(normalizeInput("é"))
+  })
+  it("ignores accents and capitals", () => {
+    expect(normalizeInput("Réseau Privé Virtuel")).toBe(normalizeInput("reseau prive virtuel"))
+    expect(normalizeInput("ÇA")).toBe("ca")
+  })
+  it("keeps distinct letters distinct", () => {
+    expect(normalizeInput("ß")).not.toBe(normalizeInput("s"))
+  })
+})
