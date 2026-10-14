@@ -415,3 +415,95 @@ describe("QuizPage — progress, persistence, reset", () => {
     expect(w.find(".quiz-btn-validate").text()).toBe("Valider")
   })
 })
+
+describe("QuizQuestion — association", () => {
+  const ASSOC = [
+    "question: Match",
+    "pair: A => one",
+    "pair: B => two",
+    "pair: C => one",
+    "distractor: three",
+  ]
+  const choose = async (w: ReturnType<typeof mountPage>, row: number, text: string) => {
+    const sel = w.findAll("select")[row]
+    const opt = sel.findAll("option").find((o) => o.text() === text)!
+    await sel.setValue(opt.element.value)
+  }
+
+  it("renders a select per pair with deduped options + distractor", async () => {
+    const w = mountPage([ASSOC])
+    await nextTick()
+    const selects = w.findAll("select")
+    expect(selects).toHaveLength(3)
+    const texts = selects[0].findAll("option").map((o) => o.text())
+    expect(texts.slice(1).sort()).toEqual(["one", "three", "two"])
+  })
+
+  it("validate disabled until every row chosen", async () => {
+    const w = mountPage([ASSOC])
+    await nextTick()
+    await choose(w, 0, "one")
+    await choose(w, 1, "two")
+    expect(w.find(".quiz-btn-validate").attributes("disabled")).toBeDefined()
+    await choose(w, 2, "one")
+    expect(w.find(".quiz-btn-validate").attributes("disabled")).toBeUndefined()
+  })
+
+  it("all correct (many-to-one) scores 1/1", async () => {
+    const w = mountPage([ASSOC])
+    await nextTick()
+    await choose(w, 0, "one")
+    await choose(w, 1, "two")
+    await choose(w, 2, "one")
+    await validate(w)
+    expect(w.find(".quiz-score-value").text()).toBe("1 / 1")
+    expect(w.findAll("select.correct")).toHaveLength(3)
+  })
+
+  it("wrong row marked and expected value shown", async () => {
+    const w = mountPage([ASSOC])
+    await nextTick()
+    await choose(w, 0, "two")
+    await choose(w, 1, "two")
+    await choose(w, 2, "one")
+    await validate(w)
+    expect(w.find(".quiz-score-value").text()).toBe("0 / 1")
+    expect(w.findAll("select.wrong")).toHaveLength(1)
+    expect(w.find(".quiz-expected code").text()).toBe("one")
+    expect(w.find("select").attributes("disabled")).toBeDefined()
+  })
+
+  it("persists across remount", async () => {
+    const w = mountPage([ASSOC])
+    await nextTick()
+    await choose(w, 0, "one")
+    w.unmount()
+    const w2 = mountPage([ASSOC])
+    await nextTick()
+    await nextTick()
+    const sel = w2.findAll("select")[0].element as HTMLSelectElement
+    expect(sel.selectedOptions[0].textContent!.trim()).toBe("one")
+  })
+
+  it("reset clears selections", async () => {
+    const w = mountPage([ASSOC])
+    await nextTick()
+    await choose(w, 0, "one")
+    await choose(w, 1, "two")
+    await choose(w, 2, "one")
+    await validate(w)
+    await w.find(".quiz-btn-reset").trigger("click")
+    await nextTick()
+    for (const s of w.findAll("select")) expect((s.element as HTMLSelectElement).value).toBe("")
+  })
+
+  it("shuffle changes display order only; scoring still by text", async () => {
+    const w = mountPage([[...ASSOC, "shuffle: true"]])
+    await nextTick()
+    await choose(w, 0, "one")
+    await choose(w, 1, "two")
+    await choose(w, 2, "one")
+    await validate(w)
+    expect(w.find(".quiz-score-value").text()).toBe("1 / 1")
+  })
+})

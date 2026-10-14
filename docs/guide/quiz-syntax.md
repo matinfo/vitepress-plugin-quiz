@@ -10,11 +10,13 @@ Every quiz is written inside a `:::quiz` … `:::` fenced block. Place one block
 | `answer: <text>` | Choice mode | A wrong answer option. |
 | `answer-correct: <text>` | Choice mode | A correct answer option. Multiple lines = multiple correct answers (multi-select). |
 | `answer-input: <text>` | Input mode | An accepted answer for fill-in-the-blank. Multiple lines = accepted variants (case-insensitive). |
+| `pair: <left> => <right>` | Association mode | One item and its correct match. Two or more lines = association question. |
+| `distractor: <text>` | ❌ | Extra wrong option added to the association drop-downs. |
 | `explanation: <text>` | ❌ | Shown after validation. Supports the same rich text as `question:`. |
-| `shuffle: true` | ❌ | Randomise answer order on every page load (choice mode only). |
+| `shuffle: true` | ❌ | Randomise answer order on every page load (choice and association modes). |
 
 ::: tip Question types are auto-detected
-If at least one `answer-input:` line is present, the question is treated as **fill-in-the-blank**. Otherwise it is **choice** (single or multiple depending on the number of `answer-correct:` lines).
+If at least one `answer-input:` line is present, the question is treated as **fill-in-the-blank**. Otherwise, if two or more `pair:` lines are present, it is an **association**. Otherwise it is **choice** (single or multiple depending on the number of `answer-correct:` lines).
 :::
 
 ## Single-choice question
@@ -60,6 +62,25 @@ answer-input: padding:
 explanation: The `padding` property adds space between the content and the border.
 :::
 ```
+
+## Association
+
+Each `pair:` line is `item => correct match`. The arrow `-->` also works (`item --> correct match`); `=>` takes priority when both appear. Every item gets a drop-down; the options are built automatically from all the right-hand values (duplicates merged, so several items may share one answer). Add `distractor:` lines for extra wrong options. All items must be matched correctly for the question to count as correct.
+
+```md
+:::quiz
+question: Match each language to its category
+pair: TypeScript => Compiled
+pair: Python => Interpreted
+pair: HTML => Markup
+pair: SQL => Query language
+distractor: Assembly
+explanation: HTML is a markup language, not a programming language.
+shuffle: true
+:::
+```
+
+Left-hand items support `**bold**`, `*italic*` and `` `code` ``; drop-down options are plain text.
 
 ## Rich text
 

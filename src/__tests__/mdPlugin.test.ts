@@ -149,6 +149,49 @@ describe("quizMarkdownPlugin (end-to-end via markdown-it)", () => {
 
 /* ── parser edge cases ───────────────────────────────────────────────── */
 
+describe("parseQuizBlock — association", () => {
+  it("parses pairs and derives deduped options + distractors", () => {
+    const d = parseQuizBlock([
+      "question: Q?",
+      "pair: A => x",
+      "pair: B => y",
+      "pair: C => x",
+      "distractor: z",
+    ])
+    expect(d!.type).toBe("association")
+    expect(d!.pairs).toEqual([
+      { left: "A", right: "x" },
+      { left: "B", right: "y" },
+      { left: "C", right: "x" },
+    ])
+    expect(d!.options).toEqual(["x", "y", "z"])
+  })
+
+  it("accepts --> as an alias; => wins when both appear", () => {
+    const d = parseQuizBlock(["question: Q?", "pair: e-mail --> Message", "pair: A => B --> C"])
+    expect(d!.pairs).toEqual([
+      { left: "e-mail", right: "Message" },
+      { left: "A", right: "B --> C" },
+    ])
+  })
+
+  it("ignores pairs without => and needs two valid pairs", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
+    expect(parseQuizBlock(["question: Q?", "pair: A => x", "pair: nope"])).toBeNull()
+    expect(warn).toHaveBeenCalled()
+    warn.mockRestore()
+  })
+
+  it("answer-input wins over pairs; pairs win over choice answers", () => {
+    expect(
+      parseQuizBlock(["question: Q?", "pair: A => x", "pair: B => y", "answer-input: z"])!.type,
+    ).toBe("input")
+    expect(
+      parseQuizBlock(["question: Q?", "pair: A => x", "pair: B => y", "answer: z"])!.type,
+    ).toBe("association")
+  })
+})
+
 describe("parseQuizBlock — edge cases", () => {
   it("keeps colons inside values", () => {
     const d = parseQuizBlock(["question: Ratio 1:2?", "answer-correct: http://x.y:80"])

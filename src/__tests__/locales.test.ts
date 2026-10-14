@@ -19,6 +19,8 @@ describe("locales", () => {
       "inputHint",
       "inputPlaceholder",
       "expectedAnswer",
+      "associationHint",
+      "associationPlaceholder",
     ]
     for (const code of ALL_LOCALES) {
       for (const key of required) {

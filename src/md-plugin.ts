@@ -1,6 +1,6 @@
 import type MarkdownIt from "markdown-it"
 import type StateBlock from "markdown-it/lib/rules_block/state_block.mjs"
-import type { QuizData, QuizAnswer } from "./types/quiz"
+import type { QuizData, QuizAnswer, QuizPair } from "./types/quiz"
 
 const QUIZ_RE = /^:::quiz\s*$/
 const CLOSE_RE = /^:::\s*$/
@@ -10,6 +10,8 @@ const KNOWN_KEYS = new Set([
   "answer",
   "answer-correct",
   "answer-input",
+  "pair",
+  "distractor",
   "explanation",
   "explication",
   "shuffle",
@@ -101,7 +103,7 @@ function quizBlockRule(
   if (!data) {
     console.warn(
       `[vitepress-plugin-quiz] Ignored invalid :::quiz block at line ${startLine + 1}: ` +
-        "needs a 'question:' and at least one 'answer:'/'answer-correct:' or 'answer-input:'.",
+        "needs a 'question:' and at least one 'answer:'/'answer-correct:', 'answer-input:', or two 'pair: A => B' lines.",
     )
     return false
   }
@@ -122,6 +124,8 @@ export function parseQuizBlock(lines: string[]): QuizData | null {
   const answers: QuizAnswer[] = []
   let explanation = ""
   const expected: string[] = []
+  const pairs: QuizPair[] = []
+  const distractors: string[] = []
   let shuffle = false
 
   // Lines that are not a known `key:` continue the previous field (multi-line values).
@@ -156,6 +160,31 @@ export function parseQuizBlock(lines: string[]): QuizData | null {
         if (value) expected.push(value)
         append = null
         break
+      case "pair": {
+        // `=>` wins; `-->` is an alias
+        let sep = value.indexOf("=>")
+        let sepLen = 2
+        if (sep < 0) {
+          sep = value.indexOf("-->")
+          sepLen = 3
+        }
+        if (sep < 0) {
+          console.warn(`[vitepress-plugin-quiz] Ignored 'pair:' without '=>' or '-->': "${value}"`)
+          append = null
+          break
+        }
+        const entry: QuizPair = {
+          left: value.slice(0, sep).trim(),
+          right: value.slice(sep + sepLen).trim(),
+        }
+        if (entry.left && entry.right) pairs.push(entry)
+        append = null
+        break
+      }
+      case "distractor":
+        if (value) distractors.push(value)
+        append = null
+        break
       case "explanation":
       case "explication": // legacy French alias
         explanation = value
@@ -171,11 +200,25 @@ export function parseQuizBlock(lines: string[]): QuizData | null {
   if (!question) return null
 
   if (expected.length > 0) {
-    return { question, type: "input", answers: [], expected, explanation, shuffle: false }
+    return {
+      question, type: "input", answers: [], expected, pairs: [], options: [],
+      explanation, shuffle: false,
+    }
+  }
+
+  if (pairs.length >= 2) {
+    const options = [...new Set([...pairs.map((p) => p.right), ...distractors])]
+    return {
+      question, type: "association", answers: [], expected: [], pairs, options,
+      explanation, shuffle,
+    }
   }
 
   if (answers.length === 0) return null
-  return { question, type: "choice", answers, expected: [], explanation, shuffle }
+  return {
+    question, type: "choice", answers, expected: [], pairs: [], options: [],
+    explanation, shuffle,
+  }
 }
 
 /* ── renderer ────────────────────────────────────────────────────────── */

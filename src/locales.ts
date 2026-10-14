@@ -11,6 +11,8 @@ export const locales: Record<string, QuizLocale> = {
     inputHint: "Type your answer",
     inputPlaceholder: "Your answer…",
     expectedAnswer: "Expected answer:",
+    associationHint: "Match each item with its answer",
+    associationPlaceholder: "Choose…",
   },
   fr: {
     answered: "répondue(s)",
@@ -22,6 +24,8 @@ export const locales: Record<string, QuizLocale> = {
     inputHint: "Saisissez votre réponse",
     inputPlaceholder: "Votre réponse…",
     expectedAnswer: "Réponse attendue :",
+    associationHint: "Associez chaque élément à sa réponse",
+    associationPlaceholder: "Choisir…",
   },
   de: {
     answered: "beantwortet",
@@ -33,6 +37,8 @@ export const locales: Record<string, QuizLocale> = {
     inputHint: "Geben Sie Ihre Antwort ein",
     inputPlaceholder: "Ihre Antwort…",
     expectedAnswer: "Erwartete Antwort:",
+    associationHint: "Ordnen Sie jedem Element die passende Antwort zu",
+    associationPlaceholder: "Auswählen…",
   },
   it: {
     answered: "risposta/e",
@@ -44,6 +50,8 @@ export const locales: Record<string, QuizLocale> = {
     inputHint: "Digita la tua risposta",
     inputPlaceholder: "La tua risposta…",
     expectedAnswer: "Risposta attesa:",
+    associationHint: "Abbina ogni elemento alla risposta corretta",
+    associationPlaceholder: "Scegli…",
   },
   es: {
     answered: "respondida(s)",
@@ -55,6 +63,8 @@ export const locales: Record<string, QuizLocale> = {
     inputHint: "Escribe tu respuesta",
     inputPlaceholder: "Tu respuesta…",
     expectedAnswer: "Respuesta esperada:",
+    associationHint: "Asocia cada elemento con su respuesta",
+    associationPlaceholder: "Elegir…",
   },
 }
 
