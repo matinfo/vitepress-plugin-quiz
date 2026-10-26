@@ -5,7 +5,7 @@ import pkg from "../../package.json"
 export default defineConfig({
   title: "vitepress-plugin-quiz",
   description:
-    "Interactive quizzes in your VitePress docs — multiple-choice, fill-in-the-blank, i18n, sessionStorage persistence.",
+    "Interactive quizzes in your VitePress docs — multiple-choice, fill-in-the-blank, association, i18n, sessionStorage persistence.",
 
   base: "/vitepress-plugin-quiz/",
 

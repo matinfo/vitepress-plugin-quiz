@@ -9,11 +9,20 @@ Every quiz is written inside a `:::quiz` … `:::` fenced block. Place one block
 | `question: <text>` | ✅ | The question text. Supports `**bold**`, `*italic*`, `` `code` `` inline formatting. |
 | `answer: <text>` | Choice mode | A wrong answer option. |
 | `answer-correct: <text>` | Choice mode | A correct answer option. Multiple lines = multiple correct answers (multi-select). |
-| `answer-input: <text>` | Input mode | An accepted answer for fill-in-the-blank. Multiple lines = accepted variants (case-insensitive). |
+| `answer-input: <text>` | Input mode | An accepted answer for fill-in-the-blank. Multiple lines = accepted variants (ignores case, accents and extra spaces). |
 | `pair: <left> => <right>` | Association mode | One item and its correct match. Two or more lines = association question. |
 | `distractor: <text>` | ❌ | Extra wrong option added to the association drop-downs. |
 | `explanation: <text>` | ❌ | Shown after validation. Supports the same rich text as `question:`. |
-| `shuffle: true` | ❌ | Randomise answer order on every page load (choice and association modes). |
+| `shuffle: true` | ❌ | Randomise answer order (choice) or drop-down option order (association) on every page load and reset. Ignored in input mode. |
+
+## Supported question types
+
+| Type | Keys | Correct when | Shuffle |
+|---|---|---|---|
+| Single choice | `answer:` + one `answer-correct:` | the correct answer is selected | ✅ |
+| Multiple choice | `answer:` + two or more `answer-correct:` | exactly the correct set is selected | ✅ |
+| Fill-in-the-blank | one or more `answer-input:` | the text matches any variant | ❌ |
+| Association | two or more `pair:` (+ optional `distractor:`) | every item has its matching option | ✅ (options) |
 
 ::: tip Question types are auto-detected
 If at least one `answer-input:` line is present, the question is treated as **fill-in-the-blank**. Otherwise, if two or more `pair:` lines are present, it is an **association**. Otherwise it is **choice** (single or multiple depending on the number of `answer-correct:` lines).
@@ -67,6 +76,15 @@ explanation: The `padding` property adds space between the content and the borde
 
 Each `pair:` line is `item => correct match`. The arrow `-->` also works (`item --> correct match`); `=>` takes priority when both appear. Every item gets a drop-down; the options are built automatically from all the right-hand values (duplicates merged, so several items may share one answer). Add `distractor:` lines for extra wrong options. All items must be matched correctly for the question to count as correct.
 
+Requirements and behaviour:
+
+- At least **two** valid `pair:` lines are needed; with fewer, the block is treated as a choice question (and ignored if it has no `answer:` lines).
+- A `pair:` line without `=>` or `-->`, or with an empty side, is skipped (a build-time warning is logged for a missing arrow).
+- The validate button stays disabled until every row has a selection.
+- After validation, wrong rows are marked and show the expected value.
+- `shuffle: true` reorders the drop-down options only; the rows keep their source order.
+- Selections are persisted for the session like other question types.
+
 ```md
 :::quiz
 question: Match each language to its category
@@ -80,7 +98,7 @@ shuffle: true
 :::
 ```
 
-Left-hand items support `**bold**`, `*italic*` and `` `code` ``; drop-down options are plain text.
+Left-hand items support `**bold**`, `*italic*` and `` `code` ``; drop-down options are plain text, so formatting characters there appear literally.
 
 ## Rich text
 
