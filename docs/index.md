@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "vitepress-plugin-quiz"
   text: "Interactive quizzes in your docs"
-  tagline: Add multiple-choice and fill-in-the-blank quizzes to any VitePress page — no JavaScript knowledge required.
+  tagline: Add multiple-choice, fill-in-the-blank and matching quizzes to any VitePress page — no JavaScript knowledge required.
   image:
     src: /logo.svg
     alt: vitepress-plugin-quiz logo
@@ -30,7 +30,7 @@ features:
 
   - icon: 🔀
     title: Multiple question types
-    details: Single-choice, multiple-choice, and fill-in-the-blank — mix them freely on the same page.
+    details: Single-choice, multiple-choice, fill-in-the-blank, and association (matching) — mix them freely on the same page.
 
   - icon: 💾
     title: Session persistence

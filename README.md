@@ -11,7 +11,7 @@
 A VitePress plugin that adds interactive quizzes to your Markdown pages using a simple `:::quiz` fenced block syntax.
 
 **Features:**
-- 📝 Single-choice, multiple-choice, and fill-in-the-blank questions
+- 📝 Single-choice, multiple-choice, fill-in-the-blank, and association (matching) questions
 - 💾 Session persistence — answers survive page navigation
 - 🌍 i18n: English, French, German, Italian, Spanish (or bring your own)
 - ♿ ARIA roles, keyboard navigation, screen-reader announcements
@@ -90,6 +90,17 @@ pair: HTML => Markup
 distractor: Query language
 :::
 ```
+
+### Supported question types
+
+| Type | Keys | Correct when | `shuffle: true` |
+|------|------|--------------|-----------------|
+| Single choice | `answer:` + exactly one `answer-correct:` | the correct answer is picked | ✅ |
+| Multiple choice | `answer:` + two or more `answer-correct:` | exactly the set of correct answers is picked | ✅ |
+| Fill-in-the-blank | one or more `answer-input:` | the text matches any variant (lenient) | ❌ ignored |
+| Association | two or more `pair: A => B`, optional `distractor:` | every row matches its value | ✅ |
+
+All types accept `question:` (required) and `explanation:` (shown after validation). The type is inferred from the keys; if a block mixes them, `answer-input:` wins over `pair:`, which wins over `answer:`.
 
 ### Syntax notes
 
